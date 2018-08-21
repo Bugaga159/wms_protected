@@ -4,10 +4,10 @@ require_once "databases/QueryBuilder.php";
 
 $db = new QueryBuilder;
 
+$tasks = $db->all('tasks');
 
-$tasks = $db->all("tasks");
 
-$user = $db->all("users");
+
 
 require_once "templates/header.php"
 
@@ -29,7 +29,7 @@ require_once "templates/header.php"
                       </div>
                   </div>
                   <div class="col-9">
-                      
+
                       <table class="table table-striped table-dark tasks__align">
                           <thead>
                             <tr>
@@ -42,91 +42,24 @@ require_once "templates/header.php"
                             </tr>
                           </thead>
                           <tbody>
-                              <th scope="row">
-                              <?php foreach($tasks as $value)
-                                  $i=count($value['id']);
-                                  while($i > 0){
-                                    echo $i;
-                                    $i--;      
-                                  }
-                                   
-                              ?></th>
+                            <?php //Цикл выводв данных из БД
 
-<?php
-                            endforeach;
-                            ?>
+                                foreach ($tasks as $task):?>
                             <tr>
-                              <th scope="row">1</th>
-                              <td>Настроить ТСД</td>
-                              <td class="work__tasks">В работе</td>
-                              <td>Наумова Анна</td>
-                              <td>18/07/18г</td>
-                              <td>
-                                  <button type="button" class="btn btn-success">
-                                      <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                              <circle cx="17" cy="15" r="1" />
-                                              <circle cx="16" cy="16" r="6" />
-                                              <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-                                      </svg>
-                                  </button>
-                                  
-                                  <button type="button" class="btn btn-danger">
-                                      <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                              <path d="M2 30 L30 2 M30 30 L2 2" />
-                                      </svg>
-                                  </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>Зарядить все аккумуляторы ТСД</td>
-                              <td class="done__tasks">Выполнено</td>
-                              <td>Панин Андрей</td>
-                              <td>20/07/18г</td>
-                              <td>
-                                  <button type="button" class="btn btn-success">
-                                      <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                              <circle cx="17" cy="15" r="1" />
-                                              <circle cx="16" cy="16" r="6" />
-                                              <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-                                      </svg>
-                                  </button>
-                                  
-                                  <button type="button" class="btn btn-danger">
-                                      <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                              <path d="M2 30 L30 2 M30 30 L2 2" />
-                                      </svg>
-                                  </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>Создать отчет на утро</td>
-                              <td class="work__tasks">В работе</td>
-                              <td>Смирнова Любовь</td>
-                              <td>21/07/18г</td>
-                              <td>
-                                  <button type="button" class="btn btn-success">
-                                      <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                              <circle cx="17" cy="15" r="1" />
-                                              <circle cx="16" cy="16" r="6" />
-                                              <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-                                      </svg>
-                                  </button>
-                                  
-                                  <button type="button" class="btn btn-danger">
-                                      <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                              <path d="M2 30 L30 2 M30 30 L2 2" />
-                                      </svg>
-                                  </button>
-                              </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Зарядить все аккумуляторы ТСД</td>
-                                <td class="done__tasks">Выполнено</td>
-                                <td>Панин Андрей</td>
-                                <td>20/07/18г</td>
+                                <th scope="row"><?=$task['id'];?></th>
+                                <td><?=$task['text'];?></td>
+                                <?php if($task['status'] == '1'){
+                                  echo '<td class="done__tasks">Выполнено</td>';
+                                }elseif ($task['status'] == '2') {
+                                  echo '<td class="work__tasks">В работе</td>';
+                                }else {
+                                    echo '<td class="work__tasks">Ожидает</td>';
+                                  } ?>
+                                <td>
+                                  <?php $name = $db->getOne('users', $task['responsible']);
+                                      echo $name['lastname']. ' '. $name['firstname'];
+                                 ?></td>
+                                <td><?=$task['data'];?></td>
                                 <td>
                                     <button type="button" class="btn btn-success">
                                         <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -135,7 +68,7 @@ require_once "templates/header.php"
                                                 <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
                                         </svg>
                                     </button>
-                                    
+
                                     <button type="button" class="btn btn-danger">
                                         <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                                                 <path d="M2 30 L30 2 M30 30 L2 2" />
@@ -143,77 +76,14 @@ require_once "templates/header.php"
                                     </button>
                                 </td>
                               </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td>Создать отчет на утро</td>
-                                <td class="work__tasks">В работе</td>
-                                <td>Смирнова Любовь</td>
-                                <td>21/07/18г</td>
-                                <td>
-                                    <button type="button" class="btn btn-success">
-                                        <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                <circle cx="17" cy="15" r="1" />
-                                                <circle cx="16" cy="16" r="6" />
-                                                <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-                                        </svg>
-                                    </button>
-                                    
-                                    <button type="button" class="btn btn-danger">
-                                        <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                <path d="M2 30 L30 2 M30 30 L2 2" />
-                                        </svg>
-                                    </button>
-                                </td>
-                              </tr>
-                              <tr>
-                                  <th scope="row">2</th>
-                                  <td>Зарядить все аккумуляторы ТСД</td>
-                                  <td class="done__tasks">Выполнено</td>
-                                  <td>Панин Андрей</td>
-                                  <td>20/07/18г</td>
-                                  <td>
-                                      <button type="button" class="btn btn-success">
-                                          <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                  <circle cx="17" cy="15" r="1" />
-                                                  <circle cx="16" cy="16" r="6" />
-                                                  <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-                                          </svg>
-                                      </button>
-                                      
-                                      <button type="button" class="btn btn-danger">
-                                          <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                  <path d="M2 30 L30 2 M30 30 L2 2" />
-                                          </svg>
-                                      </button>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Создать отчет на утро</td>
-                                  <td class="work__tasks">В работе</td>
-                                  <td>Смирнова Любовь</td>
-                                  <td>21/07/18г</td>
-                                  <td>
-                                      <button type="button" class="btn btn-success">
-                                          <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                  <circle cx="17" cy="15" r="1" />
-                                                  <circle cx="16" cy="16" r="6" />
-                                                  <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-                                          </svg>
-                                      </button>
-                                      
-                                      <button type="button" class="btn btn-danger">
-                                          <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                  <path d="M2 30 L30 2 M30 30 L2 2" />
-                                          </svg>
-                                      </button>
-                                  </td>
-                                </tr>
+
+                            <?php endforeach; ?>
+
                           </tbody>
                         </table>
                   </div>
           </div>
-            
+
             </div>
         </div>
       </main>

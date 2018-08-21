@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `ChangesDay` (
   `id` int(11) NOT NULL,
-  `text` text NOT NULL
+  `text` text  NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

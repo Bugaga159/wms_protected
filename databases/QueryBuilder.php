@@ -7,7 +7,7 @@ class QueryBuilder
 
     function __construct()
     {
-        $this->pdo = new PDO("mysql:host=localhost; dbname=wms_protected", "root", "");
+        $this->pdo = new PDO("mysql:host=localhost; dbname=wms_protected; charset=utf8", "root", "123456");
     }
 
     //Список задач
@@ -78,4 +78,3 @@ class QueryBuilder
         $statement->execute();
     }
 }
-

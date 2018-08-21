@@ -8,8 +8,6 @@ $id = $_GET['id'];
 
 $user = $db->getOne("users", $id);
 
-
-
 require_once "templates/header.php"
 ?>
 
@@ -17,7 +15,7 @@ require_once "templates/header.php"
 
          <main >
             <div class="container ">
-                 <div class="row"> 
+                 <div class="row">
                     <div class="col-12">
                         <h2>Добро пожаловать <?php echo $user["lastname"]." ".$user['firstname']?>!</h2>
 
@@ -34,7 +32,7 @@ require_once "templates/header.php"
                             </a></p>
                     </div>
                     <div class="col-9">
-                
+
                         <h4 class="profile__table">Ваш график работы на Август:</h4>
 
                         <table border="1" class="profile__table">
@@ -71,7 +69,7 @@ require_once "templates/header.php"
                                     <td class="weekend">29</td>
                                     <td>30</td>
                                     <td>31</td>
-        
+
                                 </tr>
                                 <tr>
                                         <td class="person">Панин Андрей</td>
@@ -112,7 +110,7 @@ require_once "templates/header.php"
                          <p>
                             <button type="button" class="btn btn-success">Количество дней доп. выходов - <span class="badge badge-light">3</span></button>
                             <button type="button" class="btn btn-danger">Количество дней отпуска за свой счет - <span class="badge badge-light">0</span></button>
-                            
+
                          </p>
                     </div>
                 </div>

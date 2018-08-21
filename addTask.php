@@ -1,6 +1,14 @@
 <?php
 
+require_once "databases/QueryBuilder.php";
 
+$db = new QueryBuilder;
+
+$status = $db->all('statusTask');
+$users =$db->all('users');
+
+// var_dump($status);
+// die;
 
 
 
@@ -11,33 +19,42 @@ require_once "templates/header.php"
         <div class="container">
           <div class="tasks__main">
               <div class="row justify-content-md-center">
-                  
+
                   <div class="col-7 ">
-                        <form class="tasks__main">
+                        <form class="tasks__main" action="" method="post">
                             <div class="form-group">
                                 <label for="exampleFormControlInput1"><h4>Статус:</h4></label>
-                        
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>В работе</option>
-                                    <option>Выполнено</option>
-                                    <option>Ожидает</option>
+
+                                <select name='status' class="form-control" id="exampleFormControlSelect1" name=''>
+                                  <?php foreach ($status as $stat): ?>
+                                    <?php  echo '<option>'.$stat['text'].'</option>';?>
+                                  <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1"><h4>Создатель заявки:</h4></label>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                <option>Коновалов Александр</option>
-                                <option>Кичигин Роман</option>
-                                <option>Наумова Анна</option>
-                                <option>Николаюк Екатерина</option>
-                                <option>Смирнова Любовь</option>
+                                <select name='creator' class="form-control" id="exampleFormControlSelect1">
+                                  <?php foreach($users as $user ): ?>
+                                  <?php echo '<option>'. $user['lastname']. " ". $user['firstname']. '</option>'; ?>
+                                <?php endforeach; ?>
+
                                 </select>
-                                
+
                             </div>
-                            
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1"><h4>Кто выполнить задачу:</h4></label>
+                                <select name='responsible' class="form-control" id="exampleFormControlSelect1">
+                                  <?php foreach($users as $user ): ?>
+                                  <?php echo '<option>'. $user['lastname']. " ". $user['firstname']. '</option>'; ?>
+                                <?php endforeach; ?>
+
+                                </select>
+
+                            </div>
+
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1"><h4>Описание задания:</h4></label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <textarea name='text' class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                             </div>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Создать задачу</button>
                         </form>
