@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WMS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="text-center">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">WMS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+              <a class="nav-link" href="index.html">Главная <span class="sr-only">(current)</span></a>
+            </li>
+            
+          </ul>
+          
+        </div>
+      </nav>
+
+      <main>
+          <div class="container-fluid">
+              <div class="main">
+
+                <h1>Добро пожаловать в WMS!</h1>
+                <p>Для дальнейшей работы необходимо авторизоваться!</p>
+                <div class="main__form">
+                    <form class="form-signin" action="profile.php" method="POST">
+                        
+                        <h1 class="h3 mb-3 font-weight-normal">Пожалуйста введите данные:</h1>
+                        <label for="inputLogin" class="sr-only">Login</label>
+                        <input type="text" id="inputLogin" class="form-control" placeholder="Login" required="" autofocus="" name="login">
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" name="password">
+                        <div class="checkbox mb-3">
+                            <label>
+                            <input type="checkbox" value="remember-me"> Запомнить меня
+                            </label>
+                        </div>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit"><svg id="i-signin" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                <path d="M3 16 L23 16 M15 8 L23 16 15 24 M21 4 L29 4 29 28 21 28" />
+                            </svg> Войти</button>
+                        <p class="mt-5 mb-3 text-muted">© 2018г</p>
+                    </form>
+                </div>
+              </div>
+          </div> 
+      </main>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>
