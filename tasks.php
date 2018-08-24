@@ -1,9 +1,12 @@
 <?php
 
-require_once "databases/QueryBuilder.php";
+//Подключение файла запросов
+require_once "databases/QueryBuilder.php"; 
 
+//Содание экземпляра класса запросов QueryBuilder
 $db = new QueryBuilder;
 
+// Выбираем все из БД таблицы `tasks`, выводит ---- id, status, responsible, data, text, creator
 $tasks = $db->all('tasks');
 
 
@@ -42,7 +45,7 @@ require_once "templates/header.php"
                             </tr>
                           </thead>
                           <tbody>
-                            <?php //Цикл выводв данных из БД
+                            <?php //Цикл выводв данных из БД таблицы `tasks`
 
                                 foreach ($tasks as $task):?>
                             <tr>

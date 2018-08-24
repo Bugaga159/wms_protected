@@ -1,6 +1,14 @@
 <?php
 
 
+//Подключение файла запросов
+require_once "databases/QueryBuilder.php"; 
+
+//Содание экземпляра класса запросов QueryBuilder
+$db = new QueryBuilder;
+
+// Выбираем все из БД таблицы `reports`, выводит ---- id, changeDay, text, creator, data
+$reports = $db->all('reports');
 
 
 
@@ -32,158 +40,46 @@ require_once "templates/header.php"
                             </tr>
                           </thead>
                           <tbody>
+                            <?php foreach($reports as $report): // Проходит цикл по ---- id, changeDay, text, creator, data
+                             ?>
+                                <?php $iduser = $report['creator'];
+                                $user = $db->getOne("users", $iduser); // Выводим данные по пользователю id, login, firstname, lastname,
+                                                                       //password, birthday, position 
+                                $day = $report['changeDay'];
+                                $chanchDays = $db->getOne('ChangesDay', $day ); // Выводим данные таблицы ChangesDay --- id, text
+
+                                ?>
+                            <tr>
+                                <th scope="row"><?=$report['id'];?></th>
+                                <td><?=$report['data']; ?></td>
+                                <td><?=$chanchDays['text']; ?></td>
+                                <td><?=$report['text']; ?></td>
+                                <td><?=$user['lastname']. " ". $user['firstname']; ?></td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-success">
+                                            <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                    <circle cx="17" cy="15" r="1" />
+                                                    <circle cx="16" cy="16" r="6" />
+                                                    <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
+                                            </svg>
+                                        </button>
+                                        <button type="button" class="btn btn-warning">
+                                            <svg id="i-compose" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                    <path d="M27 15 L27 30 2 30 2 5 17 5 M30 6 L26 2 9 19 7 25 13 23 Z M22 6 L26 10 Z M9 19 L13 23 Z" />
+                                            </svg>
+                                        </button>
+                                        <button type="button" class="btn btn-danger">
+                                            <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                    <path d="M2 30 L30 2 M30 30 L2 2" />
+                                            </svg>
+                                        </button>
+                                                
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php  endforeach; ?>
                             
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>18/07/18г</td>
-                                <td>День</td>
-                                <td>В работе макло ТСД, нужно увеличить количество</td>
-                                <td>Наумова Анна</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-success">
-                                            <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <circle cx="17" cy="15" r="1" />
-                                                    <circle cx="16" cy="16" r="6" />
-                                                    <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-warning">
-                                            <svg id="i-compose" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M27 15 L27 30 2 30 2 5 17 5 M30 6 L26 2 9 19 7 25 13 23 Z M22 6 L26 10 Z M9 19 L13 23 Z" />
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-danger">
-                                            <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M2 30 L30 2 M30 30 L2 2" />
-                                            </svg>
-                                        </button>
-                                                
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>17/07/18г</td>
-                                <td>Ночь</td>
-                                <td>приёмку 005876-приёмку удалили акт на неё.
-                                        на новом складе заблокировали 35 паллет кег так как они с осадком код ЕНС 20255.
-                                        в ночь на новом складе надо переместить из 24 ряда ПЭТ 1.0л и сделать под ПЭТ 1.5л так как паллеты с Пэт 1.0л слишком большие и выпирают за края</td>
-                                <td>Наумова Анна</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-success">
-                                            <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <circle cx="17" cy="15" r="1" />
-                                                    <circle cx="16" cy="16" r="6" />
-                                                    <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-warning">
-                                            <svg id="i-compose" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M27 15 L27 30 2 30 2 5 17 5 M30 6 L26 2 9 19 7 25 13 23 Z M22 6 L26 10 Z M9 19 L13 23 Z" />
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-danger">
-                                            <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M2 30 L30 2 M30 30 L2 2" />
-                                            </svg>
-                                        </button>
-                                                
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>16/07/18г</td>
-                                <td>День</td>
-                                <td>прописан под пиво 34 ряд
-                                        2 уровень от 20-66 яч
-                                        3-6 уровни 7-66 яч.
-                                        То пиво которое не расчитывалось .Разместили в консервы и соки/воды.Распоряжение Фильцагина.</td>
-                                <td>Наумова Анна</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-success">
-                                            <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <circle cx="17" cy="15" r="1" />
-                                                    <circle cx="16" cy="16" r="6" />
-                                                    <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-warning">
-                                            <svg id="i-compose" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M27 15 L27 30 2 30 2 5 17 5 M30 6 L26 2 9 19 7 25 13 23 Z M22 6 L26 10 Z M9 19 L13 23 Z" />
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-danger">
-                                            <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M2 30 L30 2 M30 30 L2 2" />
-                                            </svg>
-                                        </button>
-                                                
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>15/07/18г</td>
-                                <td>Ночь</td>
-                                <td>блок А04.34.10 по А04.34.24 там поставили бумагу А4!</td>
-                                <td>Наумова Анна</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-success">
-                                            <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <circle cx="17" cy="15" r="1" />
-                                                    <circle cx="16" cy="16" r="6" />
-                                                    <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-warning">
-                                            <svg id="i-compose" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M27 15 L27 30 2 30 2 5 17 5 M30 6 L26 2 9 19 7 25 13 23 Z M22 6 L26 10 Z M9 19 L13 23 Z" />
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-danger">
-                                            <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M2 30 L30 2 M30 30 L2 2" />
-                                            </svg>
-                                        </button>
-                                                
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                             <th scope="row">5</th>
-                                <td>15/07/18г</td>
-                                <td>День</td>
-                                <td>блок А04.34.10 по А04.34.24 там поставили бумагу А4!
-                                        БЛОК снят- убрала категорию</td>
-                                <td>Наумова Анна</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-success">
-                                            <svg id="i-eye" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <circle cx="17" cy="15" r="1" />
-                                                    <circle cx="16" cy="16" r="6" />
-                                                    <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-warning">
-                                            <svg id="i-compose" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M27 15 L27 30 2 30 2 5 17 5 M30 6 L26 2 9 19 7 25 13 23 Z M22 6 L26 10 Z M9 19 L13 23 Z" />
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-danger">
-                                            <svg id="i-close" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M2 30 L30 2 M30 30 L2 2" />
-                                            </svg>
-                                        </button>
-                                                
-                                    </div>
-                                </td>
-                            </tr>
                           </tbody>
                         </table>
                   </div>
